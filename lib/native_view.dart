@@ -34,7 +34,7 @@ class NativeView extends StatelessWidget {
               );
             },
             onCreatePlatformView: (PlatformViewCreationParams params) {
-              return PlatformViewsService.initSurfaceAndroidView(
+              return PlatformViewsService.initExpensiveAndroidView(
                 id: params.id,
                 viewType: params.viewType,
                 layoutDirection: TextDirection.ltr,
