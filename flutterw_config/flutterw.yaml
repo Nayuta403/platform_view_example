@@ -1,4 +1,0 @@
-engine:
-  git:
-    url: 'git@code.byted.org:tech_client/flutter.git'
-    ref: bd_2.10_pre
