@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:platform_view_example/listdemo.dart';
@@ -11,15 +12,30 @@ class NativeViewPage extends StatefulWidget {
   State<NativeViewPage> createState() => _NativeViewState();
 }
 
-class _NativeViewState extends State<NativeViewPage> {
+class _NativeViewState extends State<NativeViewPage> with WidgetsBindingObserver {
   bool usingHybridComposition = true;
+  int count = 10000;
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if(state == AppLifecycleState.resumed){
+
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    print('FC_BASE _NativeViewState.build  [context]');
     return Scaffold(
-        // appBar: AppBar(
-        //   title: Text('PlatformView demo'),
-        // ),
+        appBar: AppBar(
+          title: Text('PlatformView demo'),
+        ),
         body: buildBody());
   }
 
@@ -49,6 +65,12 @@ class _NativeViewState extends State<NativeViewPage> {
       child: Center(
           child: Column(
         children: [
+          TextField(
+            keyboardType: TextInputType.number,
+            onChanged: (s) {
+              count = int.parse(s);
+            },
+          ),
           Expanded(
             child: Stack(
               // fit: StackFit.expand,
@@ -84,7 +106,7 @@ class _NativeViewState extends State<NativeViewPage> {
                     // color: Colors.red[600],
                     alignment: Alignment.topLeft,
                     child: GestureDetector(
-                        child: i.isOdd ? flutterView : platformView,
+                        child: i.isEven ? flutterView : platformView,
                         onTap: () => setState(() {
                               i++;
                             })),
@@ -110,7 +132,8 @@ class _NativeViewState extends State<NativeViewPage> {
                             Navigator.of(context)
                                 .push(MaterialPageRoute(builder: (c) {
                               return ListDemo();
-                            }));                          }),
+                            }));
+                          }),
                     ),
                   ),
                 ),
@@ -121,10 +144,12 @@ class _NativeViewState extends State<NativeViewPage> {
                       opacity: 0.8,
                       child: GestureDetector(
                         onTap: () {
-                          Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (c) {
-                            return WebViewExample();
-                          }));
+                          // Navigator.of(context)
+                          //     .push(MaterialPageRoute(builder: (c) {
+                          //   return WebViewExample();
+                          // }));
+                          print('DJD dart 刷新当前界面');
+                          setState(() {});
                         },
                         child: Container(
                           width: 120,
